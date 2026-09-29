@@ -1,0 +1,19 @@
+.sidebar {
+    min-height: 100vh;
+    width: 250px;
+    transition: all 0.3s ease;
+}
+
+.sidebar.collapsed {
+    margin-left: -250px;
+}
+
+.login-card {
+    width: 100%;
+    max-width: 400px;
+}
+
+.content-wrapper {
+    transition: all 0.3s ease;
+    width: 100%;
+}
