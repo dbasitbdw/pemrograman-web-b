@@ -12,7 +12,7 @@ for ($i = 1; $i <= 5; $i++) {
 echo "\nFaktorial\n";
 for ($n = 1; $n <= 6; $n++) {
     $f = 1;
-    for ($k = 1; $k <= n; $k++) {
+    for ($k = 1; $k <= $n; $k++) {
         $f *= $k;
     }
     echo "$n! = $f\n";
