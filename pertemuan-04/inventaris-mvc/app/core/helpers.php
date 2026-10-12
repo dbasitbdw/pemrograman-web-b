@@ -9,6 +9,8 @@ function base_url(string $path = ''): string {
 return BASEURL . '/' . ltrim($path, '/');
 }
 function take_flash(): ?array {
-if (empty($_SESSION['flash'])) return null;
-$f = $_SESSION['flash']; unset($_SESSION['flash']); return $f;
+    if (empty($_SESSION['flash'])) return null;
+    $flash = $_SESSION['flash'];
+    unset($_SESSION['flash']);
+    return $flash;
 }

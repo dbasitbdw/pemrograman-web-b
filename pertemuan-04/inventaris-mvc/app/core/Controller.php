@@ -10,6 +10,9 @@ class Controller {
         exit;
     }
     public function flash(string $type, string $message): void {
-    $_SESSION['flash'] = ['type' => $type, 'message' => $message];
+        $_SESSION['flash'] = ['type' => $type, 'message' => $message];
+    }
+    protected function requireLogin(): void {
+        Middleware::requireLogin();
     }
 }

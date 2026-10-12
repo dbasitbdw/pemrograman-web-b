@@ -14,6 +14,9 @@ CREATE TABLE users (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+INSERT INTO users (username, password, full_name, role)
+VALUES ('admin', '$2y$10$.DHoz2nErZaWXMUtMUs2ae21pZjSGOm1xq5T0dDPGnvnqQsyRbVUS', 'Administrator', 'admin');
+
 CREATE TABLE categories (
     id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(100) NOT NULL,
