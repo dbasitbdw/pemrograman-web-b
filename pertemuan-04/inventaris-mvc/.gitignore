@@ -1,2 +1,8 @@
 .env
 logs/
+README.md
+
+# Local runtime files
+*.log
+*.swp
+.DS_Store

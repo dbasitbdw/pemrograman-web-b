@@ -34,6 +34,10 @@ class App {
     }
     private function notFound(): void {
         http_response_code(404);
+        extract(array_merge(view_shared_data(), [
+            'title' => '404 Not Found',
+            'path' => '/' . ($_GET['url'] ?? ''),
+        ]));
         require ROOT_PATH . '/app/views/errors/404.php';
     }
 }

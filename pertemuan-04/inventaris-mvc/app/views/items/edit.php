@@ -1,4 +1,6 @@
 <?php require ROOT_PATH . '/app/views/layouts/header.php'; ?>
-<h2 class="mb-3"><?= e($title) ?></h2>
-<?php require ROOT_PATH . '/app/views/items/_form.php'; ?>
+<div class="d-flex justify-content-between align-items-center mb-4"><div><h3 class="mb-0 fw-bold">Edit Barang</h3><small class="text-muted">Perbarui data barang</small></div><a href="<?= base_url('items') ?>" class="btn btn-outline-secondary"><i class="bi bi-arrow-left"></i> Kembali</a></div>
+<div class="card border-0 shadow-sm"><div class="card-body"><form action="<?= base_url('items/update/' . $item['id']) ?>" method="post">
+<?php require ROOT_PATH . '/app/views/items/_form.php'; ?><div class="mt-4"><button type="submit" class="btn btn-primary"><i class="bi bi-save"></i> Update</button> <a href="<?= base_url('items') ?>" class="btn btn-light">Batal</a></div>
+</form></div></div>
 <?php require ROOT_PATH . '/app/views/layouts/footer.php'; ?>

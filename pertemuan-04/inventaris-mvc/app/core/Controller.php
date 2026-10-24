@@ -1,6 +1,7 @@
 <?php
 class Controller {
     public function view(string $view, array $data = []): void {
+        $data = array_merge(view_shared_data(), $data);
         extract($data);
         require ROOT_PATH . '/app/views/' . $view . '.php';
     }

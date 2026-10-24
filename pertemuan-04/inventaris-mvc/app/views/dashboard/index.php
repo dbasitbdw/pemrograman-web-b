@@ -2,18 +2,15 @@
 require ROOT_PATH . '/app/views/layouts/header.php';
 ?>
 
-<div class="d-flex justify-content-between align-items-center mb-4">
-    <h2><?= e($title) ?></h2>
+<div class="d-flex justify-content-between align-items-center mb-4"><div><h3 class="mb-0 fw-bold">Dashboard</h3><small class="text-muted">Ringkasan data inventaris barang</small></div></div>
+<div class="row g-3 mb-4">
+<?php foreach ([['Jenis Barang', $totalItems, 'box', 'primary'], ['Kategori', $totalCategories, 'tags', 'success'], ['Total Stok', $totalStock, 'stack', 'warning'], ['Nilai Aset', rupiah($totalAssetValue), 'cash-coin', 'danger']] as $stat): ?>
+<div class="col-md-3"><div class="card border-0 shadow-sm h-100"><div class="card-body d-flex justify-content-between align-items-center"><div><div class="text-muted small"><?= e($stat[0]) ?></div><div class="fs-4 fw-bold"><?= e($stat[1]) ?></div></div><i class="bi bi-<?= e($stat[2]) ?> text-<?= e($stat[3]) ?> stat-icon"></i></div></div></div>
+<?php endforeach; ?>
 </div>
-<div class="row g-3">
-    <div class="col-md-3"><div class="card"><div class="card-body"><h6 class="text-muted">Total Barang</h6><h3><?= e($totalItems) ?></h3><a href="<?= base_url('items') ?>">Lihat barang</a></div></div></div>
-    <div class="col-md-3"><div class="card"><div class="card-body"><h6 class="text-muted">Total Stok</h6><h3><?= e($totalStock) ?></h3></div></div></div>
-    <div class="col-md-3"><div class="card"><div class="card-body"><h6 class="text-muted">Nilai Aset</h6><h3><?= e(rupiah($totalAssetValue)) ?></h3></div></div></div>
-    <div class="col-md-3"><div class="card"><div class="card-body"><h6 class="text-muted">Transaksi Hari Ini</h6><h3><?= e($todayTransactionCount) ?></h3></div></div></div>
-</div>
-<div class="row g-3 mt-1">
-    <div class="col-lg-5"><div class="card"><div class="card-header d-flex justify-content-between"><span>Stok Menipis</span><span class="badge text-bg-danger"><?= e($lowStockCount) ?></span></div><div class="card-body p-0"><table class="table table-sm mb-0"><tbody><?php foreach ($lowStockItems as $item): ?><tr><td><?= e($item['name']) ?></td><td class="text-end text-danger fw-bold"><?= e($item['quantity'] . ' ' . $item['unit']) ?></td></tr><?php endforeach; ?><?php if (!$lowStockItems): ?><tr><td class="text-center py-3">Tidak ada stok menipis.</td></tr><?php endif; ?></tbody></table></div></div></div>
-    <div class="col-lg-7"><div class="card"><div class="card-header">Transaksi Terbaru</div><div class="card-body p-0"><div class="table-responsive"><table class="table table-sm mb-0"><thead><tr><th>Barang</th><th>Tipe</th><th>Jumlah</th><th>Tanggal</th></tr></thead><tbody><?php foreach ($recentTransactions as $transaction): ?><tr><td><?= e($transaction['item_name']) ?></td><td><span class="badge text-bg-<?= $transaction['type'] === 'IN' ? 'success' : 'secondary' ?>"><?= e($transaction['type']) ?></span></td><td><?= e($transaction['quantity']) ?></td><td><?= e($transaction['created_at']) ?></td></tr><?php endforeach; ?><?php if (!$recentTransactions): ?><tr><td colspan="4" class="text-center py-3">Belum ada transaksi.</td></tr><?php endif; ?></tbody></table></div></div></div></div>
-</div>
+<div class="row g-3"><div class="col-md-6"><div class="card border-0 shadow-sm h-100"><div class="card-header bg-white d-flex justify-content-between"><strong><i class="bi bi-exclamation-triangle text-warning"></i> Stok Menipis (≤ 5)</strong><span class="badge bg-warning text-dark"><?= e($lowStockCount) ?></span></div><div class="table-responsive"><table class="table table-hover mb-0"><tbody>
+<?php foreach ($lowStockItems as $item): ?><tr><td><code><?= e($item['code']) ?></code></td><td><?= e($item['name']) ?></td><td class="text-center"><span class="badge bg-danger"><?= e($item['quantity']) ?></span></td></tr><?php endforeach; ?><?php if (!$lowStockItems): ?><tr><td class="text-center py-4">Semua stok barang masih aman.</td></tr><?php endif; ?></tbody></table></div><div class="card-footer bg-white text-end"><a href="<?= base_url('items') ?>" class="btn btn-sm btn-outline-primary">Kelola Barang</a></div></div></div>
+<div class="col-md-6"><div class="card border-0 shadow-sm h-100"><div class="card-header bg-white d-flex justify-content-between"><strong><i class="bi bi-clock-history text-info"></i> Transaksi Terbaru</strong><span class="badge bg-info text-dark">Hari ini: <?= e($todayTransactions) ?></span></div><div class="table-responsive"><table class="table table-hover mb-0"><thead><tr><th>Waktu</th><th>Barang</th><th class="text-center">Tipe</th><th class="text-center">Qty</th></tr></thead><tbody>
+<?php foreach ($recentTransactions as $trx): ?><tr><td><small><?= e(date('d/m H:i', strtotime($trx['created_at']))) ?></small></td><td><?= e($trx['item_name'] ?? '-') ?></td><td class="text-center"><span class="badge bg-<?= $trx['type'] === 'IN' ? 'success' : 'danger' ?>"><?= $trx['type'] === 'IN' ? 'Masuk' : 'Keluar' ?></span></td><td class="text-center"><?= e($trx['quantity']) ?></td></tr><?php endforeach; ?><?php if (!$recentTransactions): ?><tr><td colspan="4" class="text-center py-4">Belum ada transaksi.</td></tr><?php endif; ?></tbody></table></div><div class="card-footer bg-white text-end"><a href="<?= base_url('transactions') ?>" class="btn btn-sm btn-outline-info">Lihat Semua</a></div></div></div></div>
 
 <?php require ROOT_PATH . '/app/views/layouts/footer.php'; ?>

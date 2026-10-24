@@ -10,12 +10,14 @@ class HomeController extends Controller {
         $this->view('dashboard/index', [
             'title' => 'Dashboard',
             'totalItems' => $item->totalItems(),
+            'totalCategories' => $this->model('Category')->count(),
             'totalStock' => $item->totalStock(),
             'totalAssetValue' => $item->totalAssetValue(),
             'lowStockCount' => $item->lowStockCount(),
             'lowStockItems' => $item->lowStockItems(),
             'recentTransactions' => $transaction->recent(),
             'todayTransactionCount' => $transaction->todayCount(),
+            'todayTransactions' => $transaction->todayCount(),
         ]);
     }
 }
